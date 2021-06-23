@@ -1,10 +1,11 @@
 """Rules to load all dependencies of this project."""
 
 load(
-    "@bazel_tools//tools/build_defs/repo:http.bzl",
-    "http_archive",
-    "http_file",
+    "@bazel_tools//tools/build_defs/repo:http.bzl", "http_archive", "http_file",)
+load("@bazel_tools//tools/build_defs/repo:git.bzl",
+   "git_repository"
 )
+
 
 def repositories():
     excludes = native.existing_rules().keys()
@@ -12,12 +13,18 @@ def repositories():
     rules_python_version = "0.1.0"
 
     if "rules_python" not in excludes:
-        http_archive(
-            name = "rules_python",
-            url = "https://github.com/bazelbuild/rules_python/archive/{version}.tar.gz".format(version = rules_python_version),
-            strip_prefix = "rules_python-{version}".format(version = rules_python_version),
-            sha256 = "48f7e716f4098b85296ad93f5a133baf712968c13fbc2fdf3a6136158fe86eac",
+        git_repository(
+          name = "rules_python",
+          commit = "dc29726",
+          remote = "git@github.com:XiaoConstantine/rules_python.git",
         )
+
+        #http_archive(
+            #name = "rules_python",
+            #url = "https://github.com/bazelbuild/rules_python/archive/{version}.tar.gz".format(version = rules_python_version),
+            #strip_prefix = "rules_python-{version}".format(version = rules_python_version),
+            #sha256 = "48f7e716f4098b85296ad93f5a133baf712968c13fbc2fdf3a6136158fe86eac",
+        #)
 
     if "bazel_skylib" not in excludes:
         http_archive(

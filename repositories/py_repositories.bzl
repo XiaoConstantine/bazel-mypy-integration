@@ -3,7 +3,10 @@
 Provides functions to pull the external Mypy package dependency.
 """
 
-load("@rules_python//python:pip.bzl", "pip_install")
+#load("@rules_python//python:pip.bzl", "pip_install")
+load("@rules_python//python:repositories.bzl", "py_repositories")
+
+load("@rules_python//experimental/rules_python_external:defs.bzl", "pip_install")
 
 def py_deps(mypy_requirements_file, python_interpreter, python_interpreter_target):
     """Pull in external Python packages needed by py binaries in this repo.
